@@ -1,0 +1,52 @@
+{
+    "name": "yacas-syntax-highlighting",
+    "displayName": "yacas syntax highlighting",
+    "description": "Syntax highlighting for yacas files",
+    "icon": "yacas-logo.png",
+    "license": "MIT",
+    "publisher": "grzegorzmazur",
+    "author": {
+        "name": "Grzegorz Mazur",
+        "email": "teoretyk@gmail.com"
+    },
+    "homepage": "http://yacas.org",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/grzegorzmazur/yacas-syntax-highlighting.git"
+    },
+    "bugs": {
+        "url": "https://github.com/grzegorzmazur/yacas-syntax-highlighting/issues"
+    },
+    "version": "1.0.0",
+    "engines": {
+        "vscode": "^1.44.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "yacas",
+                "aliases": [
+                    "yacas"
+                ],
+                "extensions": [
+                    ".ys",
+                    ".yts"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "yacas",
+                "scopeName": "source.yacas",
+                "path": "./syntaxes/yacas.tmLanguage.json"
+            }
+        ]
+    },
+    "dependencies": {
+        "vsce": "^1.77.0"
+    }
+}

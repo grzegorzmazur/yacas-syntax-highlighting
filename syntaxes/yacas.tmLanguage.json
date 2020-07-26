@@ -1,0 +1,254 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "yacas",
+	"scopeName": "source.yacas",
+	"patterns": [
+		{
+			"include": "#expressions"
+		}
+	],
+	"repository": {
+        "comments": {
+            "patterns": [
+                {
+                    "name": "comment.block.yacas",
+                    "begin": "/\\*",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.comment.begin.yacas"
+                        }
+                    },
+                    "end": "\\*/",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.comment.end.yacas"
+                        }
+                    }
+                },
+                {
+                    "begin": "//",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.comment.yacas"
+                        }
+                    },
+                    "end": "(\n)",
+                    "name": "comment.line.double-slash.yacas"
+                }
+            ]
+        },
+		"strings": {
+			"name": "string.yacas",
+			"begin": "\"",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.yacas"
+				}
+			},
+			"end": "\"",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.yacas"
+				}
+			},
+			"patterns": [
+				{
+					"name": "constant.character.escape.yacas",
+					"match": "\\\\[nt\\\\\"]"
+				},
+				{
+                    "match": "\\\\.",
+                    "name": "invalid.illegal.unknown-escape.yacas"
+                }
+			]
+		},
+		"punctuation": {
+            "patterns": [
+                {
+                    "match": ";",
+                    "name": "punctuation.terminator.statement.yacas"
+                },
+                {
+                    "match": ",",
+                    "name": "punctuation.separator.delimiter.yacas"
+                }
+            ]
+        },
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.yacas",
+					"match": "\\b(If|While|Until|For|ForEach)\\b"
+				},
+				{
+					"name": "keyword.other.yacas",
+					"match": "\\b(Function|Local|LocalSymbols|MacroLocal|RuleBase|Rule|MacroRuleBase|Function|Protect|UnProtect|Infix|UnFence)\\b"
+				},
+				{
+					"name": "keyword.operator.boolean.yacas",
+					"match": "\\b(Not|And|Or)\\b"
+				},
+				{
+					"name": "keyword.operator.comparison.yacas",
+					"match": "!=|<=|>=|=|<|>|=="
+				},
+				{
+					"name": "keyword.operator.assignment.yacas",
+					"match": ":=|<--"
+				},
+				{
+					"name": "keyword.operator.arithmetic.yacas",
+					"match": "%|\\*|/|-|\\+|\\^|:"
+				},
+				{
+					"name": "keyword.operator.decrement.yacas",
+					"match": "--"
+				},
+				{
+					"name": "keyword.operator.increment.yacas",
+					"match": "\\+\\+"
+				},
+				{
+					"name": "keyword.operator.other.yacas",
+					"match": "\\.\\.|Where"
+				}
+			]
+		},
+		"labels": {
+			"patterns": [
+				{
+					"name": "storage.modifier.yacas",
+					"match": "\\d+\\s#"
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.integer.yacas",
+					"match": "\\d+(?![.eE])"
+				},
+				{
+					"name": "constant.numeric.float.yacas",
+					"match": "((((\\d*[.]\\d+)|(\\d+[.]\\d*))([eE][+-]?\\d+)?)|(\\d+[eE][+-]?\\d+))"
+				}
+			]
+		},
+		"constants": {
+			"name": "constant.language.yacas",
+			"match": "\\b(True|False|Undefined|Infinity|Pi)\\b"
+		},
+		"block_expressions": {
+			"begin": "\\[",
+			"end": "\\]",
+			"patterns": [
+				{
+					"include": "#expressions"
+				}
+			]
+		},
+		"list_expressions": {
+			"begin": "{",
+			"end": "}",
+			"patterns": [
+				{
+					"include": "#expressions"
+				}
+			]
+		},
+		"parenthesized_expressions": {
+			"begin": "\\(",
+			"end": "\\)",
+			"patterns": [
+				{
+					"include": "#expressions"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"match": "(?>[a-zA-Z'$](\\w+)?)\\s?(?=:=)",
+					"name": "variable.other.assignment.yacas"
+				},
+				{
+					"match": "(?>[a-zA-Z_](\\w+)?)(?=\\[)",
+					"name": "variable.other.access.yacas"
+				},
+				{
+					"match": "(?>[a-zA-Z_](\\w+)?)",
+					"name": "variable.other.yacas"
+				}
+			]
+		},
+		"functions": {
+			"begin": "([A-Za-z_'$][\\w'$]*)\\s*(\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "entity.name.function.yacas"
+				},
+				"2": {
+					"name": "punctuation.definition.parameters.begin.bracket.round.yacas"
+				}
+			},
+			"end": "(\\))\\s*(:=|<--)",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.parameters.end.bracket.round.yacas"
+				},
+				"2": {
+					"name": "keyword.operator.assignment.yacas"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#expressions"
+				},
+				{
+					"match": ",",
+					"name": "punctuation.separator.parameters.yacas"
+				}
+			]
+		},
+		"expressions": {
+			"patterns": [
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#strings"
+				},
+				{
+					"include": "#keywords"
+				},
+				{
+					"include": "#constants"
+				},
+				{
+					"include": "#labels"
+				},
+				{
+					"include": "#numbers"
+				},
+				{
+					"include": "#list_expressions"
+				},
+				{
+					"include": "#block_expressions"
+				},
+				{
+					"include": "#parenthesized_expressions"
+				},
+				{
+					"include": "#punctuation"
+				},
+				{
+					"include": "#functions"
+				},
+				{
+					"include": "#variables"
+				}
+			]
+		}
+	}
+}
